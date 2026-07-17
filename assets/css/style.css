@@ -1,0 +1,370 @@
+/* ==========================================================================
+   Team Prototypes — app shell
+   ========================================================================== */
+
+:root {
+  /* iPhone 15 Pro 기준 실측값 */
+  --screen-w: 393px;
+  --screen-h: 852px;
+  --bezel: 12px;
+  --radius-inner: 55px;
+  --radius-outer: 67px;
+
+  --sidebar-w: 264px;
+  --toolbar-h: 56px;
+
+  --ink: #16171b;
+  --ink-2: #5b5d66;
+  --line: #e4e4e8;
+  --bg: #f4f4f6;
+  --panel: #16171b;
+  --panel-2: #232429;
+  --panel-ink: #a9abb4;
+  --accent: #5b6cff;
+
+  --scale: 1;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------- sidebar */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  color: #fff;
+  overflow: hidden;
+}
+
+.sidebar__head {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.logo__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(91, 108, 255, 0.2);
+}
+
+.logo__text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.logo__sub {
+  margin: 8px 0 0 18px;
+  font-size: 11px;
+  color: #6d6f78;
+  letter-spacing: 0.02em;
+}
+
+.tree {
+  flex: 1;
+  padding: 14px 12px;
+  overflow-y: auto;
+}
+
+.folder + .folder { margin-top: 4px; }
+
+.folder__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: #e8e8ec;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;          /* 기본 삼각형 제거 */
+  user-select: none;
+}
+
+.folder__btn::-webkit-details-marker { display: none; }
+
+.folder__btn:hover { background: var(--panel-2); }
+
+.folder__caret {
+  width: 8px;
+  color: #6d6f78;
+  font-size: 9px;
+  transition: transform 0.15s ease;
+}
+
+.folder[open] .folder__caret { transform: rotate(90deg); }
+
+.folder__icon { font-size: 13px; }
+
+.folder__count {
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 20px;
+  background: var(--panel-2);
+  color: #6d6f78;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.folder__list {
+  margin: 2px 0 6px;
+  padding: 0 0 0 18px;
+  list-style: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  margin-left: 18px;
+}
+
+.page__btn {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--panel-ink);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.page__btn:hover {
+  background: var(--panel-2);
+  color: #fff;
+}
+
+.page__btn[aria-current="true"] {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar__foot {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 12px;
+}
+
+.sidebar__foot a {
+  color: #6d6f78;
+  text-decoration: none;
+}
+
+.sidebar__foot a:hover { color: #fff; }
+
+/* --------------------------------------------------------------- canvas */
+
+.canvas {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--toolbar-h);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  flex: none;
+}
+
+.toolbar__title {
+  font-size: 13px;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar__title strong { color: var(--ink); }
+
+.toolbar__sep { margin: 0 6px; color: #c9cad1; }
+
+.toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.zoom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.zoom select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: #c9cad1;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------- stage */
+
+.stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  overflow: auto;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, #dcdce2 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9b9da6;
+  font-size: 13.5px;
+  background: var(--bg);
+  background-image: inherit;
+}
+
+.stage.is-loaded .empty { display: none; }
+
+/* --------------------------------------------------------------- iPhone */
+
+.phone {
+  position: relative;
+  flex: none;
+  transform: scale(var(--scale));
+  transform-origin: center center;
+  transition: transform 0.18s ease;
+}
+
+.phone__frame {
+  position: relative;
+  width: calc(var(--screen-w) + var(--bezel) * 2);
+  height: calc(var(--screen-h) + var(--bezel) * 2);
+  padding: var(--bezel);
+  border-radius: var(--radius-outer);
+  background: linear-gradient(160deg, #43454d 0%, #1c1d22 42%, #35373e 100%);
+  box-shadow:
+    0 0 0 1.5px rgba(255, 255, 255, 0.14) inset,
+    0 2px 3px rgba(0, 0, 0, 0.4) inset,
+    0 24px 60px -12px rgba(20, 20, 30, 0.45),
+    0 8px 20px -6px rgba(20, 20, 30, 0.25);
+}
+
+.phone__screen {
+  position: relative;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  background: #fff;
+}
+
+.phone__screen iframe {
+  display: block;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  border: 0;
+  background: #fff;
+}
+
+/* Dynamic Island */
+.phone__island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 125px;
+  height: 36px;
+  border-radius: 20px;
+  background: #000;
+  pointer-events: none;
+}
+
+/* 측면 버튼 */
+.phone__btn {
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #202126, #4a4c55);
+}
+
+.phone__btn--silent  { left: -3px; top: 118px; height: 30px; }
+.phone__btn--volup   { left: -3px; top: 176px; height: 62px; }
+.phone__btn--voldown { left: -3px; top: 250px; height: 62px; }
+
+.phone__btn--power {
+  right: -3px;
+  top: 208px;
+  height: 102px;
+  background: linear-gradient(270deg, #202126, #4a4c55);
+}
+
+/* --------------------------------------------------------------- 좁은 화면 */
+
+@media (max-width: 720px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
