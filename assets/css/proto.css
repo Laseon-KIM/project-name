@@ -1,0 +1,125 @@
+/* ==========================================================================
+   프로토타입 공통 베이스 (393 × 852)
+   각 프로토타입 html 에서 이 파일을 불러다 쓰세요.
+   <link rel="stylesheet" href="../assets/css/proto.css">
+   ========================================================================== */
+
+:root {
+  --status-h: 54px;   /* 상태바 (다이나믹 아일랜드 영역) */
+  --home-h: 34px;     /* 홈 인디케이터 */
+
+  --ink: #16171b;
+  --ink-2: #6b6d76;
+  --line: #ececef;
+  --accent: #5b6cff;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  width: 393px;
+  height: 852px;
+  margin: 0;
+  overflow: hidden;   /* 화면 밖으로 못 나가게 */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------- 상태바 */
+
+/* 내용은 assets/js/proto.js 가 그립니다 */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--status-h);
+  /* 위쪽 4px 는 글자·아이콘 중심을 다이나믹 아일랜드 중심과 맞추기 위한 값 */
+  padding: 4px 26px 0;
+  flex: none;
+  color: var(--ink);
+}
+
+.status__time {
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;   /* 시간 바뀔 때 폭 안 흔들리게 */
+}
+
+.status__icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status__ico { display: block; }
+
+/* 어두운 화면용 — <div class="status" data-dark></div> */
+.status.is-dark { color: #fff; }
+
+/* ------------------------------------------------------------- 본문 */
+
+/* 스크롤이 필요한 화면은 여기에 담으세요 */
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.screen::-webkit-scrollbar { width: 0; }
+
+/* ------------------------------------------------------------- 탭바 */
+
+.tabbar {
+  display: flex;
+  flex: none;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.tabbar__item {
+  flex: 1;
+  padding: 9px 0 4px;
+  border: 0;
+  background: transparent;
+  color: #b4b6bd;
+  font: inherit;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.tabbar__item span {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 19px;
+}
+
+.tabbar__item.is-active { color: var(--accent); }
+
+/* ------------------------------------------------------- 홈 인디케이터 */
+
+.home-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--home-h);
+  flex: none;
+}
+
+.home-indicator::after {
+  content: "";
+  width: 140px;
+  height: 5px;
+  border-radius: 3px;
+  background: #16171b;
+}
